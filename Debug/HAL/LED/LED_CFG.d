@@ -1,0 +1,6 @@
+HAL/LED/LED_CFG.d HAL/LED/LED_CFG.o: ../HAL/LED/LED_CFG.c \
+ ../MCAL/../HAL//LED/LED.h ../MCAL/../HAL//LED/LED_CFG.h
+
+../MCAL/../HAL//LED/LED.h:
+
+../MCAL/../HAL//LED/LED_CFG.h:
