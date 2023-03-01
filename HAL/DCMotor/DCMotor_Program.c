@@ -1,0 +1,103 @@
+/****************************************************************/
+/*   Author             :    Gamal Ahmed Gamal 				    */
+/*	 Date 				:    25 Feb 2023 						*/
+/*	 Version 			:    1.0V 							 	*/
+/*	 Description 		:   Program  for DC Motor		        */
+/****************************************************************/
+
+
+/****************************************************************/
+/*********************** STD LIB DIRECTIVES *********************/
+/****************************************************************/
+
+#include "../LIB/std_types.h"
+#include "../LIB/bit_math.h"
+
+
+/****************************************************************/
+/*********************** Component DIRECTIVES *******************/
+/****************************************************************/
+
+#include "../HAL/DCMotor/DCMotor_Interface.h"
+#include "../HAL/DCMotor/DCMotor_Config.h"
+#include "../HAL/DCMotor/DCMotor_Private.h"
+#include "../MCAL/DIO/dio.h"
+
+/****************************************************************/
+/*********************** Function Implementation  ***************/
+/****************************************************************/
+
+
+
+/****************************************************************/
+/* Description    :  This function used to initialize DC Motor  */
+/*					 Inputs : void			 					*/
+/*					 return : void		 						*/
+/****************************************************************/
+
+void DcMotor_voidInit( void )
+{
+	
+	/*****************************************************************/
+	/* !comment : Loop to initialize all DC Motors				 	 */
+	/*****************************************************************/
+	
+	for( u8 i = 0 ; i < NUMBER_OF_MOTORS ; i++ )
+	{
+		
+	 // !comment : Turn off Left wire of current Motor
+	 dio_vidWriteChannel(Config_DCMotor[i].Left_Motor_Port , Config_DCMotor[i].Left_Motor_Pin , STD_LOW );
+	 // !comment : Turn off Right  wire of current Motor
+	 dio_vidWriteChannel(Config_DCMotor[i].Right_Motor_Port, Config_DCMotor[i].Right_Motor_Pin, STD_LOW );
+	}
+
+}
+
+
+/****************************************************************/
+/* Description    :  This function used to show the Direction	*/
+/*					 of Moving. 								*/
+/*					 Inputs : Motor Number 	 ,  				*/
+/*   						  Motor Direction[left ,right,stop] */
+/*					 return : void		 						*/
+/****************************************************************/
+/* Pre_condition  :  this function must be used after DC Motor  */
+/*     				 initialized								*/
+/****************************************************************/
+
+void DcMotor_voidMove( u8 u8MotorNumber , u8 u8Direction  )
+{
+	
+	switch( u8Direction )
+	{
+		
+		case STOP:
+		/** !comment : Turn off all wires			*/
+		 dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Left_Motor_Port , Config_DCMotor[u8MotorNumber].Left_Motor_Pin , STD_LOW );
+		 dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Right_Motor_Port, Config_DCMotor[u8MotorNumber].Right_Motor_Pin, STD_LOW );
+		break;
+	
+		case RIGHT:
+		/** !comment : Turn on right Turn off left	*/
+		dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Left_Motor_Port , Config_DCMotor[u8MotorNumber].Left_Motor_Pin , STD_LOW );
+		dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Right_Motor_Port, Config_DCMotor[u8MotorNumber].Right_Motor_Pin, STD_HIGH );		
+		break;
+		
+		case LEFT:
+		/** !comment : Turn on left Turn off right	*/
+		dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Left_Motor_Port , Config_DCMotor[u8MotorNumber].Left_Motor_Pin , STD_HIGH );
+		dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Right_Motor_Port, Config_DCMotor[u8MotorNumber].Right_Motor_Pin, STD_LOW );		
+		break;
+	
+		default:
+		/** !comment : Turn off all wires ( STOP )	*/
+		dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Left_Motor_Port , Config_DCMotor[u8MotorNumber].Left_Motor_Pin , STD_LOW );
+		dio_vidWriteChannel(Config_DCMotor[u8MotorNumber].Right_Motor_Port, Config_DCMotor[u8MotorNumber].Right_Motor_Pin, STD_LOW );
+		
+	}
+	
+}
+
+/***********************************************************************************************/
+/************************************* END OF PROGRAM ******************************************/
+/***********************************************************************************************/

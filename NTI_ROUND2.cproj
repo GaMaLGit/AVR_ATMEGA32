@@ -140,6 +140,21 @@
     <Compile Include="APP\main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\DCMotor\DCMotor_Config.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\DCMotor\DCMotor_Config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\DCMotor\DCMotor_Interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\DCMotor\DCMotor_Private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\DCMotor\DCMotor_Program.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="HAL\Keypad\Keypad.c">
       <SubType>compile</SubType>
     </Compile>
@@ -198,6 +213,18 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\SSD\SSD_CFG.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\Unipolar Stepper Motor\Uni_Stepper_Motor_Config.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\Unipolar Stepper Motor\Uni_Stepper_Motor_Config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\Unipolar Stepper Motor\Uni_Stepper_Motor_Interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\Unipolar Stepper Motor\Uni_Stepper_Motor_Program.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LIB\bit_math.h">
@@ -277,6 +304,8 @@
     <Folder Include="HAL\LED" />
     <Folder Include="HAL\LCD" />
     <Folder Include="HAL\Keypad" />
+    <Folder Include="HAL\DCMotor" />
+    <Folder Include="HAL\Unipolar Stepper Motor" />
     <Folder Include="HAL\PushButton" />
     <Folder Include="HAL\SSD" />
     <Folder Include="MCAL" />

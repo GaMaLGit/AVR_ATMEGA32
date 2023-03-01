@@ -4,6 +4,10 @@
 
 APP\main.c
 
+HAL\DCMotor\DCMotor_Config.c
+
+HAL\DCMotor\DCMotor_Program.c
+
 HAL\Keypad\Keypad.c
 
 HAL\Keypad\Keypad_CFG.c
@@ -23,6 +27,10 @@ HAL\PushButton\PushButtonCFG.c
 HAL\SSD\SSD.c
 
 HAL\SSD\SSD_CFG.c
+
+HAL\Unipolar Stepper Motor\Uni_Stepper_Motor_Config.c
+
+HAL\Unipolar Stepper Motor\Uni_Stepper_Motor_Program.c
 
 MCAL\ADC\ADC_Config.c
 

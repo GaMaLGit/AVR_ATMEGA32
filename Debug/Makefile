@@ -36,6 +36,8 @@ SUBDIRS :=  \
 ../HAL/LED \
 ../HAL/LCD \
 ../HAL/Keypad \
+../HAL/DCMotor \
+../HAL/Unipolar\ Stepper\ Motor \
 ../HAL/PushButton \
 ../HAL/SSD \
 ../MCAL \
@@ -52,6 +54,8 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../APP/main.c \
+../HAL/DCMotor/DCMotor_Config.c \
+../HAL/DCMotor/DCMotor_Program.c \
 ../HAL/Keypad/Keypad.c \
 ../HAL/Keypad/Keypad_CFG.c \
 ../HAL/LCD/LCD.c \
@@ -62,6 +66,8 @@ C_SRCS +=  \
 ../HAL/PushButton/PushButtonCFG.c \
 ../HAL/SSD/SSD.c \
 ../HAL/SSD/SSD_CFG.c \
+../HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Config.c \
+../HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Program.c \
 ../MCAL/ADC/ADC_Config.c \
 ../MCAL/ADC/ADC_program.c \
 ../MCAL/DIO/dio.c \
@@ -80,6 +86,8 @@ ASM_SRCS +=
 
 OBJS +=  \
 APP/main.o \
+HAL/DCMotor/DCMotor_Config.o \
+HAL/DCMotor/DCMotor_Program.o \
 HAL/Keypad/Keypad.o \
 HAL/Keypad/Keypad_CFG.o \
 HAL/LCD/LCD.o \
@@ -90,6 +98,8 @@ HAL/PushButton/PushButton.o \
 HAL/PushButton/PushButtonCFG.o \
 HAL/SSD/SSD.o \
 HAL/SSD/SSD_CFG.o \
+HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Config.o \
+HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Program.o \
 MCAL/ADC/ADC_Config.o \
 MCAL/ADC/ADC_program.o \
 MCAL/DIO/dio.o \
@@ -101,6 +111,8 @@ MCAL/TIMER0/TMR0_Program.o
 
 OBJS_AS_ARGS +=  \
 APP/main.o \
+HAL/DCMotor/DCMotor_Config.o \
+HAL/DCMotor/DCMotor_Program.o \
 HAL/Keypad/Keypad.o \
 HAL/Keypad/Keypad_CFG.o \
 HAL/LCD/LCD.o \
@@ -111,6 +123,8 @@ HAL/PushButton/PushButton.o \
 HAL/PushButton/PushButtonCFG.o \
 HAL/SSD/SSD.o \
 HAL/SSD/SSD_CFG.o \
+"HAL/Unipolar Stepper Motor/Uni_Stepper_Motor_Config.o" \
+"HAL/Unipolar Stepper Motor/Uni_Stepper_Motor_Program.o" \
 MCAL/ADC/ADC_Config.o \
 MCAL/ADC/ADC_program.o \
 MCAL/DIO/dio.o \
@@ -122,6 +136,8 @@ MCAL/TIMER0/TMR0_Program.o
 
 C_DEPS +=  \
 APP/main.d \
+HAL/DCMotor/DCMotor_Config.d \
+HAL/DCMotor/DCMotor_Program.d \
 HAL/Keypad/Keypad.d \
 HAL/Keypad/Keypad_CFG.d \
 HAL/LCD/LCD.d \
@@ -132,6 +148,8 @@ HAL/PushButton/PushButton.d \
 HAL/PushButton/PushButtonCFG.d \
 HAL/SSD/SSD.d \
 HAL/SSD/SSD_CFG.d \
+HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Config.d \
+HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Program.d \
 MCAL/ADC/ADC_Config.d \
 MCAL/ADC/ADC_program.d \
 MCAL/DIO/dio.d \
@@ -143,6 +161,8 @@ MCAL/TIMER0/TMR0_Program.d
 
 C_DEPS_AS_ARGS +=  \
 APP/main.d \
+HAL/DCMotor/DCMotor_Config.d \
+HAL/DCMotor/DCMotor_Program.d \
 HAL/Keypad/Keypad.d \
 HAL/Keypad/Keypad_CFG.d \
 HAL/LCD/LCD.d \
@@ -153,6 +173,8 @@ HAL/PushButton/PushButton.d \
 HAL/PushButton/PushButtonCFG.d \
 HAL/SSD/SSD.d \
 HAL/SSD/SSD_CFG.d \
+"HAL/Unipolar Stepper Motor/Uni_Stepper_Motor_Config.d" \
+"HAL/Unipolar Stepper Motor/Uni_Stepper_Motor_Program.d" \
 MCAL/ADC/ADC_Config.d \
 MCAL/ADC/ADC_program.d \
 MCAL/DIO/dio.d \
@@ -177,6 +199,20 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 APP/main.o: ../APP/main.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../MCAL" -I"../LIB" -I"../HAL" -I"../APP"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/DCMotor/DCMotor_Config.o: ../HAL/DCMotor/DCMotor_Config.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../MCAL" -I"../LIB" -I"../HAL" -I"../APP"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/DCMotor/DCMotor_Program.o: ../HAL/DCMotor/DCMotor_Program.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../MCAL" -I"../LIB" -I"../HAL" -I"../APP"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -247,6 +283,20 @@ HAL/SSD/SSD.o: ../HAL/SSD/SSD.c
 	
 
 HAL/SSD/SSD_CFG.o: ../HAL/SSD/SSD_CFG.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../MCAL" -I"../LIB" -I"../HAL" -I"../APP"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Config.o: ../HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Config.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../MCAL" -I"../LIB" -I"../HAL" -I"../APP"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Program.o: ../HAL/Unipolar\ Stepper\ Motor/Uni_Stepper_Motor_Program.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../MCAL" -I"../LIB" -I"../HAL" -I"../APP"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

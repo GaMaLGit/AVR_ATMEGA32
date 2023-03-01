@@ -23,27 +23,54 @@
 #include <util/delay.h>
 
 
+char String[5];
+u16 ADCvalue , ADC_Flag ;
+
+void ADC1(void){
+
+	ADC_Flag = 1 ;
+	
+	if(Config_ADC[0].Adj == Right_Adjustment){
+		ADCvalue = ADC ;
+	}
+	else if (Config_ADC[0].Adj == Left_Adjustment){
+		ADCvalue = ADC >>6 ;
+	}
+
+
+	
+}
+
 
 int main(void)
 {
-	u8 duty  = 0 ;
-	dio_vidConfigChannel(DIO_PORTB , DIO_PIN3, OUTPUT);
-	
-	TIMER0_void_Init();
 
 	
+	dio_vidConfigChannel(DIO_PORTA , DIO_PIN0, INPUT);
+	ADC_voidInit ();
+	ADC_voidEnable();
+	ADC_voidInterrputEnable();
+	ADC_u8ReadADC(ADC1 , 0 );
+	LCD_Init();
+	LCD_Set_Cursor(1, 1);
+	ADC_voidStartConversion();
 	while (1)
 	{
-		for(duty=0; duty<255; duty++)
-		{
-			TIMER0_void_SetCompareVal(duty);  /*increase the LED light intensity*/
-			_delay_ms(8);
+		if(ADC_Flag == 1 ) {
+			//Present on LCD
+			itoa(ADCvalue,String,10);
+			LCD_Write_String(String);
+			_delay_ms(1000);
+			LCD_Write_String("  ");
+			LCD_Set_Cursor(1, 1);
+			
+			ADC_voidStartConversion();
+			
+			ADC_Flag = 0 ;
+
 		}
-		for(duty=255; duty>1; duty--)
-		{
-			TIMER0_void_SetCompareVal(duty);  /*decrease the LED light intensity*/
-			_delay_ms(8);
-		}
+		
+		
 	}
 
 }
